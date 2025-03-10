@@ -65,6 +65,14 @@ def calcolo_ammortamnto(valori):
     return piano_ammortamento
 
 
+# funzione per stampare il piano di ammortamento in formato tabellare
+def stampa_ammortamento(piano_ammortamento):
+    for riga in piano_ammortamento:
+        for cella in riga:
+            print("{:^20}".format(cella), end = " ") # struttura tabellare con colonne da 20 carattere con ^ sigificante tienile al centro
+        print()
+
+
 # funzione di avvio programma
 def start():
     valori_acquisiti = conversione_input(acquisizione_input())
@@ -72,8 +80,10 @@ def start():
     if valori_acquisiti:
         piano_ammortamento = calcolo_ammortamnto(valori_acquisiti)
         # non inserisco tutti i calcoli essendo lunghi ma creo una funziona ad hoc
-        print(piano_ammortamento)
+        #print(piano_ammortamento) print di provare per vedere se funziona la funzione
+        stampa_ammortamento(piano_ammortamento)
     else:
         print("Hai sbagliato ad inserire qualche dato. Riavvia e riprova")
+
 
 start()
