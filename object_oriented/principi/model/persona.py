@@ -18,3 +18,4 @@ class Persona:
     # riscrittura completa del metodo di rappresentazione testuale di object (principio di polimorfismo)
     def __str__(self):
         return f"{self.nome} {self.cognome} - {self.eta} anni"
+
