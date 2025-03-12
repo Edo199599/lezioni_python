@@ -2,3 +2,4 @@
 # gli script sono eseguibili dove richiamo funzioni etc...
 # mentre i moduli contengono funzioni etc... per fare funzionare il programma
 # questo --init-- non lo toccheremo ma creeremo i moduli dentro la cartella model
+# inizializzazioni degli elementi nel package; decide quali elementi saranno esportabili dal package e quali no

@@ -1,4 +1,4 @@
-# definizione superclasse Persona
+# definizione superclasse Persona (sottoclasse della classe objet, in cima a tutte le classi in python)
 class Persona:
 
     # metodo di inizializzazione
