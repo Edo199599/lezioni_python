@@ -1,4 +1,4 @@
-Id,Tipologia,Marca,Modello,Prezzo
+id,Tipologia,Marca,Modello,Prezzo
 1,Forno,Ariston,S342,200.56
 2,Televisore,Samsung,SM-156,1300.56
 3,Lavatrice,Miele,AX78HY,999.98
@@ -9,3 +9,5 @@ Id,Tipologia,Marca,Modello,Prezzo
 8,Monitor,LG,HKG5,189.99
 9,Lavastoviglie,Rex,TN675,340.76
 10,Telecomando,Meliconi,F-543,25.78
+11,Forno,Rex,GH310,500.56
+12,iphone,elpe,r,34.0

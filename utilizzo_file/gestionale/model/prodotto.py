@@ -14,4 +14,8 @@ class Prodotto:
     def __repr__(self):
         return (f"Id Prodotto: {self.id} - Tipologia: {self.tipologia}\nMarca: {self.marca} - "
                 f"Modello: {self.modello}\nPrezzo: {self.prezzo:.2f} Euro\n----------------------------")
-    
+
+
+    # metodo di rappresentarsi in formato lista
+    def to_list(self):
+        return [self.id, self.tipologia, self.marca, self.modello, self.prezzo]
