@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
 #prima cosa da fare con un dataframe è ottenere le sue info generali
 def analisi_generali(df):
@@ -78,6 +79,70 @@ def analisi_indici_statistici(df):
         # ddof è un parametro che indica il grado di libertà
         # se 0 calcola la deviazione standard sulla popolazione, se 1 calcola la deviazione standard sul campione
         print(f"Deviazione standard sulla popolazione di {col}: {deviazione_standard_pop}")
+    # moda variabili quantitative e categoriali
+    for col in df.columns:
+        #print(f"Moda colonna {col}:", df[col].mode())
+        # anche mode ritorna una Series che ci presenta più informazioni
+        print(f"Moda colonna {col}:", df[col].mode().iloc[0])
+        # di tutte le info che la funzione mode() restituisce prendo la prima (il velore più frequente)
+    # invocazione funzione per individuazione outliers
+    print("------- Individuazione Outliers -------")
+    for col in df_quantitative.columns:
+        individuazione_outliers(df_quantitative, col)
+
+# funzione per individuazione outliers nelle variabili quantitative
+def individuazione_outliers(df, colonna):
+    # calcolo differenza/range interquartile
+    q1 = df[colonna].quantile(0.25)
+    q3 = df[colonna].quantile(0.75)
+    iqr = q3 - q1
+    # calcolo limiti inferiore e superiore outliers
+    limite_inferiore = q1 - 1.5 * iqr
+    limite_superiore = q3 + 1.5 * iqr
+    # questi limiti rappresentano i valori oltre i quali i dati sono considerati outliers
+    # individuazione outliers della colonna per cui abbiamo invocato la funzione
+    # quindi seleziono le righe/osservazioni con valori oltre i limiti. | è l'operatore OR logico
+    outliers = df[(df[colonna] < limite_inferiore) | (df[colonna] > limite_superiore)]
+    print(f"Nella colonna {colonna} sono presenti n° {len(outliers)} ({len(outliers)/len(df)*100}% di outliers)")
+    # generazione grafico boxplot solo per Spese_mensili poiché le altre hanno valori Nan
+    if colonna == "Spese_mensili":
+        generazione_diagramma_indici(df, colonna, limite_superiore, limite_inferiore)
+
+
+# funzione per generare un diagramma a scatola degli indici delle variabili quantitative
+def generazione_diagramma_indici(df, colonna, limite_superiore, limite_inferiore):
+    # potrei inserire questa funzione all'interno della funzione precedente
+    # calcolo indici generali colonna
+    indici_colonna = df[colonna].describe()
+    # generazione grafico - non possiamo eseguirlo per reddito annuo ed età perché contengono valori Nan
+    plt.boxplot(df[colonna])
+
+
+    plt.text(x=1.08, y=indici_colonna["75%"], s=f"Terzo quartile: {indici_colonna['75%']}", color="b", fontsize=8)
+    # 1.08 è la posizione sull'asse x del testo, 75% è la posizione sull'asse y all'altezza del terzo quartile
+    # s è il testo da inserire, color è il colore del testo
+    # le sigle colori più usate sono r = red, b = blue, g = green, k = black, y = yellow, m = magenta, c = cyan
+    plt.text(x=1.08, y=indici_colonna["50%"], s=f"Mediana: {indici_colonna['50%']}", color="m", fontsize=8)
+    plt.text(x=1.08, y=indici_colonna["25%"], s=f"Primo quartile: {indici_colonna['25%']}", color="k", fontsize=8)
+
+    # rappresentazione massimo e minimo
+    plt.text(x=1.08, y=indici_colonna["max"], s=f"Massimo Rilevato: {indici_colonna['max']}", color="c", fontsize=8)
+    plt.text(x=1.08, y=indici_colonna["min"], s=f"Minimo Rilevato: {indici_colonna['min']}", color="g", fontsize=8)
+
+    # rappresentazione limiti outliers
+    plt.axhline(y=limite_superiore, color="r", linestyle="--", label="Limite Superiore Outliers")
+    # le opzioni per linestyle sono: - = line, -- = dashed, -. = dashdot, : = dotted
+    plt.text(x=1.08, y=limite_superiore+300, s=f"Limite Superiore Outliers: {limite_superiore}", color="r", fontsize=9)
+    plt.axhline(y=limite_inferiore, color="r", linestyle="--", label="Limite Inferiore Outliers")
+    plt.text(x=1.08, y=limite_inferiore -1000, s=f"Limite Inferiore Outliers: {limite_inferiore}", color="r", fontsize=9)
+    # per modificare lo spessore della riga si può aggiungere il parametro linewidth = 2 (esempio). di default è 1
+
+    # indicazioni testuali (titolo grafico e assi)
+    plt.title(f"Analisi indici colonna {colonna}")
+    plt.ylabel(colonna)
+
+    # render grafico. in questo caso non serve il comando show() già incluso nel metodo boxplot
+    plt.show()
 
 # generazione dataframe da file csv
 dataframe = pd.read_csv("../dataset/data_03.csv")
