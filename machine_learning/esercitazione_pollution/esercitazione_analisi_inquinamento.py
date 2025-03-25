@@ -18,13 +18,14 @@ class ModelloInquinamento(ModelloBase):
         self.regressione_lineare_semplice("NO2")
 
 
-    # def valori_non_zero(self, column):
+    # def valori_non_zero(self, dataframe_sistemato):
     #     # funzione che data una colonna mi restituisce il numero di valori diverso da 0
     #     counter = 0
-    #     for value in column:
-    #         if value == None or value == "?" or value == np.nan or value == "0":
-    #             counter += 1
-    #     print(counter)
+    #     for col in dataframe_sistemato.columns:
+    #         for value in col:
+    #             if value is None or value == "?" or value == 0:
+    #                 counter += 1
+    #         print(counter)
 
     def sistemazione_dataframe(self):
         df_sistemato = self.dataframe.copy()

@@ -145,12 +145,16 @@ class ModelloHousing(ModelloBase):
         x_train, x_test, y_train, y_test = train_test_split(x, y, test_size= 0.2, random_state=42)
         # 0.2 è la percentuale di test
         # random_state è il seed per la randomizzazione, se non lo mettiamo ogni volta che eseguiamo il codice otteniamo una ripartizione diversa
-        # mettendolo la partizione rimane uguale perché random state fissa il seed del generatore di numeri casuali
+        # mettendolo la partizione rimane uguale perché random state fissa il seed della randomizzazione delle osservazioni
         # fa in modo che il criterio di disordinamento sia uguale in tutte le fasi di esecuzione
         # 42 in particolare è un numero scelto a caso, ma è un numero molto usato per convenzione
         # creazione e addestramento modello di regressione lineare multipla
         regressione = LinearRegression()
         regressione.fit(x_train, y_train)
+        # abbiamo corso un rischio di data leakage, cioè rischiamo che funzioni bene solo con i dati di addestramento e test
+        # ma non con nuovi dati. Per evitare questo problema dobbiamo standardizzare i dati prima di addestrare il modello
+        # e dobbiamo fare la standardizzazione solo sui dati di addestramento e poi applicare la stessa standardizzazione ai dati di test
+        # es: un prof che mostra la verifica agli studenti ma poi cambia le domande
         # predizione modello
         y_pred_train = regressione.predict(x_train)
         y_pred_test = regressione.predict(x_test)
