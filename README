@@ -4,7 +4,7 @@ Librerie istallate:
 - Scipy (Analisi indici statistici) -> pip3 install scipy
 - Scikit Learn (preprocessing e modelli Machine Learning) -> pip3 install scikit-learn
 - Seaborn (funzionalità grafiche e dataset, alternativa a Matplotlib) -> pip3 install seaborn
-
+- Kneed (per trovare il miglior numero di cluster) -> pip3 install kneed
 
 
 Apprendimento supervisionato:
