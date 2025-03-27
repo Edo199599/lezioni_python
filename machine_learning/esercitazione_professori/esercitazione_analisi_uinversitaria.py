@@ -32,11 +32,11 @@ class ModelloDocenti(ModelloBase):
     def tabella_contingenza(self, col):
         tabella_contingenza = pd.crosstab(self.df_pulito[col], self.df_pulito["Facoltà"], values=self.df_pulito["Valore Osservato"], aggfunc="sum")
         tabella_contingenza.columns = tabella_contingenza.columns.map({
-            1: "Agraria", 2: "Architettura", 3: "Chimica Industriale", 4: "Conservazione Beni Culturali",
+            1: "Agraria", 2: "Architettura", 3: "Chimica Industriale", 4: "Beni Culturali",
             5: "Economia", 6: "Farmacia", 7: "Giurisprudenza", 8: "Ingegneria", 9: "Lettere e Filosofia",
-            10: "Lingue e Letterature Straniere", 11: "Medicina e Chirurgia", 12: "Medicina Veterinaria",
-            13: "Psicologia", 14: "Scienze Ambientali", 15: "Scienze della Formazione",
-            16: "Scienze Matematiche, Fisiche e Naturali", 17: "Scienze Motorie", 18: "Scienze Politiche",
+            10: "Lingue e Lett. Straniere", 11: "Medicina", 12: "Veterinaria",
+            13: "Psicologia", 14: "Scienze Ambientali", 15: "Sc. d. Formazione",
+            16: "STEM", 17: "Scienze Motorie", 18: "Scienze Politiche",
             19: "Scienze Statistiche", 20: "Sociologia", 21: "Altro"
         })
         if col == "Qualifica":
@@ -62,6 +62,7 @@ class ModelloDocenti(ModelloBase):
         plt.ylabel("Valore Osservato")
         plt.legend(title=col, loc="upper left")
         # per allineare la legenda a sinistra a legend si passa il parametro loc="upper left"
+        # plt.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.1)
         plt.tick_params(rotation=90, axis="x", labelsize=6)
         plt.tight_layout()
         plt.show()
