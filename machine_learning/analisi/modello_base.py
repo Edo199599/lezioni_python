@@ -35,6 +35,9 @@ class ModelloBase(ABC):
             for value in df[col].unique():
                 print(value)
 
+    # .info() restituisce il numero di valori non nulli presenti in ogni colonna e il tipo di dati
+    # .describe() restituisce una serie di indici statistici per le variabili numeriche
+
     @staticmethod
     def analisi_indici_statistici(df):
         print("******** INDICI STATISTICI DATAFRAME ********")
@@ -47,6 +50,9 @@ class ModelloBase(ABC):
             # anche mode ritorna una Series che ci presenta più informazioni
             print(f"Moda colonna {col}:", df[col].mode().iloc[0])
             # di tutte le info che la funzione mode() restituisce prendo la prima (il velore più frequente)
+            # in generale iloc è un metodo per l'indicizzazione di un DataFrame o di una Series che accetta solo indici interi numerici
+            # in questo caso restituisce il valore alla posizione 0
+            # loc al contrario richiede il nome dell'indice (es: loc["colonna"])
 
     @staticmethod
     def individuazione_outliers(df, variabili_da_droppare = None):

@@ -2,6 +2,8 @@ from modello_base import ModelloBase
 import pandas as pd
 from scipy.stats import chi2_contingency
 import numpy as np
+import matplotlib.pyplot as plt
+
 
 
 class ModelloAlcolici(ModelloBase):
@@ -19,6 +21,7 @@ class ModelloAlcolici(ModelloBase):
         df_sistemato = self.dataframe.copy()
         # 2. drop colonne completamente prive di valori
         df_sistemato = df_sistemato.dropna(axis=1, how="all")
+        # how = "all" indica che la colonna viene eliminata solo se tutti i valori sono mancanti
         # 3. drop delle colonne con valore unico
         colonne_unico_valore = []
         for col in df_sistemato.columns:
@@ -64,7 +67,22 @@ class ModelloAlcolici(ModelloBase):
         # si aggiunge il -1 perché l'indice di Cramer è calcolato come radice quadrata del rapporto tra chi2 e (n * (min(righe, colonne) - 1))
         cramer = np.sqrt(chi2 / (totale_osservazioni * dimensione_minima))
         print(f"L'indice di Cramer calcolato sulla tabella di contingenza {column}-DATA_TYPE e {cramer}")
+        # invocazione metodo per generazione grafici di contingenza
+        self.grafico_contingenza(tabella_contingenza, "Fascia età" if column == "AGE" else "Genere")
 
+
+    # metodo per generazione grafici di distribuzione a barre
+    @staticmethod
+    def grafico_contingenza(tabella_contingenza, colonna):
+        tabella_contingenza.plot(kind="bar", stacked = "True", color = ["yellow", "red", "green"])
+        plt.title(f"Frequenza di consumo per {colonna}")
+        plt.xlabel(colonna)
+        plt.ylabel("Persone")
+        plt.legend(title="Tipo di consumo")
+        plt.tick_params(rotation=45, axis="x")
+        plt.tight_layout()
+        # il comando precedente serve per evitare che le etichette siano sovrapposte
+        plt.show()
 
 # utilizzo modello
 modello = ModelloAlcolici("../dataset/data_08.csv")
