@@ -1,0 +1,22 @@
+[
+  {
+    "nome":"Mario",
+    "cognome":"Rossi",
+    "telefono":"+39 555111222"
+  },
+  {
+    "nome":"Gianni",
+    "cognome":"Verdi",
+    "telefono":"+39 555333444"
+  },
+  {
+    "nome":"Laura",
+    "cognome":"Gialli",
+    "telefono":"+39 555666777"
+  },
+  {
+    "nome":"Sara",
+    "cognome":"Bianchi",
+    "telefono":"+39 555888999"
+  }
+]
