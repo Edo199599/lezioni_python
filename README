@@ -6,9 +6,4 @@ Librerie istallate:
 - Seaborn (funzionalità grafiche e dataset, alternativa a Matplotlib) -> pip3 install seaborn
 - Kneed (per trovare il miglior numero di cluster) -> pip3 install kneed
 - Pycountry (informazione globale sui paesi) -> pip3 install pycountry
-
-Apprendimento supervisionato:
-abbiamo nel dataframe la variabile target. Separiamo X e Y e il modello si addestra sui valori dati
-
-Apprendimento non supervisionato:
-non abbiamo la variabile target. Il modello si addestra sui valori dati e cerca di trovare delle relazioni tra i dati
+- Pymysql (connessione a database MySQL) -> pip3 install pymysql
