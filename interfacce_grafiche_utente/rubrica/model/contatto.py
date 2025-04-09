@@ -24,3 +24,14 @@ class Contatto:
     # metodo di istanza per coversione Contatto -> list
     def lista_attributi(self):
         return [self.nome, self.cognome, self.telefono]
+
+    # metodo per verificare quando due contatti sono uguali (tutti gli attributi sono uguali)
+    def __eq__(self, other):
+        if isinstance(other, Contatto): # verifica che l'oggetto passato sia un oggetto di tipo Contatto
+            return self.nome == other.nome and self.cognome == other.cognome and self.telefono == other.telefono
+        else:
+            return False
+
+    # metodo di istanza per serializzazione (Contatto -> dict) - (per scrivere su file)
+    def serializzazione(self):
+        return self.__dict__ # funzione nativa in Python per ottenere un dizionario con gli attributi dell'oggetto in __init__()

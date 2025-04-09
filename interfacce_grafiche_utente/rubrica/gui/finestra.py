@@ -1,4 +1,6 @@
 import tkinter as tk
+
+from interfacce_grafiche_utente.rubrica.gui.finestra_due import FinestraDue
 from interfacce_grafiche_utente.rubrica.repository.contatto_repository import *
 from tkinter import ttk
 from tkinter.messagebox import askyesno
@@ -80,7 +82,7 @@ class Finestra(tk.Tk):
 
     # metodo di logica per aggiunta contatto (dovrà aprire una finestra secondaria)
     def aggiunta_contatto(self):
-        pass
+        FinestraDue(self)
 
     # metodo di logica per eliminazione contatto con conferma utente
     def elimina_contatto(self):
@@ -95,6 +97,8 @@ class Finestra(tk.Tk):
             # askyesno ritorna True o False
             if conferma:
                 # eliminazione contatto
-                print("Contatto eliminato")
-
+                # print("Contatto eliminato")
+                contatto = Contatto(nome=riga_selezionata[0], cognome=riga_selezionata[1], telefono=riga_selezionata[2])
+                if eliminazione_contatto_repo(contatto): # se ritorna vero
+                    self.popolamento_tabella()
 
