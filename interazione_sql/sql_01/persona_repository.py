@@ -1,6 +1,6 @@
 import pymysql
 
-from interazione_sql.sql_01.persona import Persona
+from persona import Persona
 
 
 # Ogni volta che l'app deve interagire con il DB, deve aprire una connessione
@@ -71,8 +71,52 @@ def elenco_persone_repo():
                 cursor.execute(sql)
                 # recupero dei dati
                 risultato = cursor.fetchall() # fetchall() recupera tutte le righe
-                print(risultato)
+                # print(risultato)
+                return [Persona(id, nome, cognome, eta) for id, nome, cognome, eta in risultato]
     except Exception as e:
         print("Errore durante il recupero dei dati delle persone:", e)
         return None
 
+# funzione per aggiornare dati di un nuovo oggetto Persona nel database
+def aggiornamento_persona_repo(persona):
+    try:
+        with _get_connection() as connection:
+            with connection.cursor() as cursor:
+                sql = "UPDATE persone SET nome = %s, cognome = %s, eta = %s WHERE id = %s"
+                valori = persona.nome, persona.cognome, persona.eta, persona.id
+                cursor.execute(sql, valori)
+                connection.commit()
+                return cursor.rowcount
+    except Exception as e:
+        print("Errore durante la registrazione della persona:", e)
+        return None
+
+# funzione per eliminare un oggetto Persona dal database
+def eliminazione_persona_repo(id):
+    try:
+        with _get_connection() as connection:
+            with connection.cursor() as cursor:
+                sql = "DELETE FROM persone WHERE id = %s"
+                valori = id,
+                cursor.execute(sql, valori)
+                connection.commit()
+                return cursor.rowcount
+    except Exception as e:
+        print("Errore durante la registrazione della persona:", e)
+        return None
+
+# funzione per ottenere una lista di oggetti Persona dal DataBase con ricerca su caratteri cognome
+# normalmente LIKE prenderebbe %cognome% come pattern di ricerca ma potrebbe dare problemi con %s
+# risolviamo con una tupla di un solo elemento con il carattere % concatenato
+def elenco_persone_like_cognome_repo(sequenza_cercata):
+    try:
+        with _get_connection() as connection:
+            with connection.cursor() as cursor:
+                sql = "SELECT * FROM persone WHERE cognome LIKE %s"
+                valori = f"%{sequenza_cercata}%",
+                cursor.execute(sql, valori)
+                risultato = cursor.fetchall() # fetchall() recupera tutte le righe nel caso di più ID con stesso cognome
+                return [Persona(id, nome, cognome, eta) for id, nome, cognome, eta in risultato]
+    except Exception as e:
+        print("Errore durante il recupero dei dati delle persone:", e)
+        return None
