@@ -2,6 +2,7 @@ from rubrica_repository import *
 
 # funzione per testare l'aggiunta di un contatto
 def aggiunta_contatto():
+    print("******** REGISTRAZIONE CONTATTO ********")
     nome = input("Inserisci il nome del contatto da aggiungere in rubrica >>> ").lower().capitalize()
     cognome = input("Inserisci il cognome del contatto da aggiungere in rubrica >>> ").lower().capitalize()
     telefono = input("Inserisci il numero di telefono del contatto da aggiungere in rubrica >>> ")
@@ -30,7 +31,7 @@ def stampa_contatti():
 def menu():
     while True:
         scelta_utente = input("******** RUBRICA ********\n"
-                              "Digita 1 per visualizza rubrica\n"
+                              "Digita 1 per visualizzare rubrica\n"
                               "Digita 2 per aggiungere un nuovo contatto\n"
                               "Digita 0 per uscire\n"
                               ">>> ")
@@ -47,7 +48,7 @@ def menu():
                     print("Errore durante l'aggiunta del contatto")
             case "0":
                 print("Uscita...")
-                break
+                exit(0)
             case _:
                 print("Scelta non valida")
 

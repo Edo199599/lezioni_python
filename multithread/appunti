@@ -1,0 +1,14 @@
+multi thread concetto nato con il multi core nei pc
+// multi core = più processori
+scheduler = gestore di processi
+lo scheduler è un programma che gestisce i processi in modo da farli sembrare in esecuzione contemporaneamente
+lo scheduler alterna i processi in esecuzione
+
+anche i singoli programmi possono essere multithread suddividendo il loro lavoro in più attività
+alla fine si esegue una riunificazione
+
+con il multithread il programmatore perde il controllo del flusso di esecuzione
+
+
+ogni programma ha almeno un thread chiamato thread principale (main thred)
+collegato al processo (eseguibile)

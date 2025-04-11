@@ -21,20 +21,30 @@ def elenco_contatti_rubrica_repo():
         print(e)
         return None
 
-# funzione di aggiunta contatto
+# funzione di aggiunta contatto (col concetto di transaction = commit/rollback)
 def aggiunta_contatto_rubrica_repo(contatto_rubrica):
+    connetion = None
+    # lo inizializzo a None per vederlo in tutti i blocchi
     try:
-        with get_connection() as connection:
-            with connection.cursor() as cursor:
-                sql = "INSERT INTO indirizzi (via, civico, cap, comune, provincia) VALUES (%s, %s, %s, %s, %s)"
-                valori = contatto_rubrica.indirizzo.via, contatto_rubrica.indirizzo.civico, contatto_rubrica.indirizzo.cap, contatto_rubrica.indirizzo.comune, contatto_rubrica.indirizzo.provincia
-                cursor.execute(sql, valori)
-                id_indirizzo = cursor.lastrowid
-                sql = "INSERT INTO contatti (nome, cognome, telefono, mail, id_indirizzo) VALUES (%s, %s, %s, %s, %s)"
-                valori = contatto_rubrica.nome, contatto_rubrica.cognome, contatto_rubrica.telefono, contatto_rubrica.mail, id_indirizzo
-                cursor.execute(sql, valori)
-                connection.commit()
-                return cursor.rowcount
+        connection = get_connection()
+        with connection.cursor() as cursor:
+            sql_1 = "INSERT INTO indirizzi (via, civico, cap, comune, provincia) VALUES (%s, %s, %s, %s, %s)"
+            valori_1 = contatto_rubrica.indirizzo.via, contatto_rubrica.indirizzo.civico, contatto_rubrica.indirizzo.cap, contatto_rubrica.indirizzo.comune, contatto_rubrica.indirizzo.provincia
+            cursor.execute(sql_1, valori_1)
+            id_indirizzo = cursor.lastrowid
+            sql_2 = "INSERT INTO contatti (nome, cognome, telefono, mail, id_indirizzo) VALUES (%s, %s, %s, %s, %s)"
+            valori_2 = contatto_rubrica.nome, contatto_rubrica.cognome, contatto_rubrica.telefono, contatto_rubrica.mail, id_indirizzo
+            cursor.execute(sql_2, valori_2)
+            connection.commit()
+            return cursor.rowcount
     except Exception as e:
         print(e)
-        return None
+        if connetion and connetion.open:
+            # se connection non è più none e la connessione è aperta
+            connetion.rollback()
+            # rollback per annullare le operazioni in caso di errore in un qualunque punto
+            return "Errore durante l'inserimento"
+    finally:
+        # finally per eseguire la chiusura della connessione in ogni caso
+        if connetion and connetion.open:
+            connetion.close()
