@@ -7,3 +7,5 @@ Librerie istallate:
 - Kneed (per trovare il miglior numero di cluster) -> pip3 install kneed
 - Pycountry (informazione globale sui paesi) -> pip3 install pycountry
 - Pymysql (connessione a database MySQL) -> pip3 install pymysql
+- Request (gestione delle richieste HTTP) -> pip3 install requests
+- BeautifulSoup4 (analisi dei documenti HTML e XML / Web Scraping) -> pip3 install beautifulsoup4

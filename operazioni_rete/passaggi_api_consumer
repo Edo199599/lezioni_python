@@ -1,0 +1,11 @@
+- import di request
+- abbiamo creato una funzione per importare i dati
+- abbiamo usato .json per vedere i dati stessi
+è una lista di dizionari
+
+- creiamo una classe di modellazione che rispecchi i dati
+- definiziamo un costruttore, un metodo __repr__ e un metodo di deserializzazione (metodo di classe)
+- creiamo una funzione per la serializzazione dei dati per ricreare il file json
+
+- implementiamo la funzione di deserializzazione nella funzione di acquisizione dati
+- creiamo una funzione di invio_dati in cui implementeremo quella di serializzazione
